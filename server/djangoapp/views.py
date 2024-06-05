@@ -54,8 +54,8 @@ def registration(request):
     email = data['email']
     name_exists = User.objects.filter(username=username).exists()
     email_exists = User.objects.filter(email=email).exists()
-    if !(name_exists):
-        if !(email_exists):
+    if not name_exists:
+        if not email_exists:
             user = User.objects.create(username=username, password=password)
             
                 
