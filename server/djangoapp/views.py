@@ -10,7 +10,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, analyze_review_sentiments
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ def registration(request):
     email_exists = User.objects.filter(email=email).exists()
     if not name_exists:
         if not email_exists:
-            user = User.objects.create(username=username, password=password)         
+            user = User.objects.create(username=username, password=password)
             login(request, user)
             data = {"userName": username, "status": "Authenticated"}
             return JsonResponse(data)
@@ -76,7 +76,7 @@ def get_cars(request):
 # a list of dealerships
 # def get_dealerships(request):
 # ...
-# Update the `get_dealerships` render list of dealerships all by default, 
+# Update the `get_dealerships` render list of dealerships all by default,
 # particular state if state is passed
 
 
@@ -109,6 +109,7 @@ def get_dealer_reviews(request, dealer_id):
 # def get_dealer_details(request, dealer_id):
 # ...
 
+
 def get_dealer_details(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
@@ -121,9 +122,9 @@ def get_dealer_details(request, dealer_id):
 # def add_review(request):
 # ...
 
+
 def add_review(request):
     if (request.user.is_anonymous is False):
-        data = json.loads(request.body)
         try:
             return JsonResponse({"status": 200})
         except Exception as e:
